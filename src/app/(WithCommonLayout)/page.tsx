@@ -1,6 +1,11 @@
-import React from 'react';
+'use client'
 
-const HomePage = () => {
+import { useUser } from "@/context/UserContext";
+
+const HomePage = async() => {
+    
+    const user = useUser();
+    
     return (
         <div>
             <h1>Welcome to nextmart home page</h1>
