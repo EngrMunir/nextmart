@@ -12,6 +12,17 @@ const CreateShopForm = () => {
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
     const form = useForm();
     const onSubmit: SubmitHandler<FieldValues> = async (data) =>{
+
+        const servicesOffered =data?.servicesOffered.split(",").map((service:string) => service.trim()).filter((service:string)=>service !=="");
+
+        // console.log(servicesOffered)
+        const modifiedData = {
+            ...data,
+            servicesOffered:servicesOffered,
+            establishedYear: Number(data?.establishedYear)
+        }
+        
+
         try {
             console.log(data)
         } catch (err) {
@@ -186,13 +197,18 @@ const CreateShopForm = () => {
                             )}
                         />
                     </div>
+                   { imagePreview.length>0? (
                     <ImagePreviewer setImageFiles={setImageFiles} 
                     setImagePreview={setImagePreview} 
-                    imagePreview={imagePreview}/>
-                    <NMImageUploader 
-                    setImageFiles={setImageFiles} 
-                    setImagePreview ={setImagePreview} 
-                    label ="Upload Logo"/>
+                    imagePreview={imagePreview} className="mt-8" />):
+                    (
+                    <div className="mt-8">
+                        <NMImageUploader 
+                        setImageFiles={setImageFiles} 
+                        setImagePreview ={setImagePreview} 
+                        label ="Upload Logo"/>
+                    </div>
+                    )}
                    </div>
                 <Button type="submit" className="mt-5 w-full">
                     Create
