@@ -2,7 +2,7 @@
 
 import { useUser } from "@/context/UserContext";
 
-const HomePage = async() => {
+const HomePage = () => {
     
     const user = useUser();
     
