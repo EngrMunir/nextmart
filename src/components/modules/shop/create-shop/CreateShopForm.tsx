@@ -3,14 +3,18 @@ import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/imagePreviewer";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createShop } from "@/services/Shop";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const CreateShopForm = () => {
     
     const [imageFiles, setImageFiles] = useState<File[] | []>([]);
     const [imagePreview, setImagePreview] = useState<string[] | []>([]);
     const form = useForm();
+    const { formState : {isSubmitting }} = form;
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) =>{
 
         const servicesOffered =data?.servicesOffered.split(",").map((service:string) => service.trim()).filter((service:string)=>service !=="");
@@ -21,10 +25,17 @@ const CreateShopForm = () => {
             servicesOffered:servicesOffered,
             establishedYear: Number(data?.establishedYear)
         }
-        
 
         try {
-            console.log(data)
+            // convert into form data
+            const formData = new FormData();
+            formData.append("data", JSON.stringify(modifiedData));
+            formData.append("logo", imageFiles[0] as File);
+
+            const res = await createShop(formData);
+            if(res.success){
+                toast.success(res.message);
+            }
         } catch (err) {
             console.error(err)
         }
@@ -211,7 +222,7 @@ const CreateShopForm = () => {
                     )}
                    </div>
                 <Button type="submit" className="mt-5 w-full">
-                    Create
+                    { isSubmitting ? "creating...." : "Create" }
                 </Button>
                 </form>
             </Form>
