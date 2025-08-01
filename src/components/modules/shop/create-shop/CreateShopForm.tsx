@@ -1,0 +1,206 @@
+import { Button } from "@/components/ui/button";
+import NMImageUploader from "@/components/ui/core/NMImageUploader";
+import ImagePreviewer from "@/components/ui/core/NMImageUploader/imagePreviewer";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+const CreateShopForm = () => {
+    
+    const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+    const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+    const form = useForm();
+    const onSubmit: SubmitHandler<FieldValues> = async (data) =>{
+        try {
+            console.log(data)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+    return (
+        <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
+            <div className="flex items-center space-x-4">
+                <div>
+                    <h1>Logo</h1>
+                </div>
+                <div>
+                    <h1 className="text-xl font-semibold">Create Your Shop</h1>
+                    <p className="font-extralight text-sm">Join us today and start your journey!</p>
+                </div>
+            </div>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <FormField 
+                control={form.control}
+                name="shopName"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Shop Name</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="businessLicenseNumber"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Business License Number</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="address"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Address</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="contactNumber"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Contact Number</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="website"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Website</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="establishedYear"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Established Year</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="taxIdentificationNumber"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Tax Identification Number</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="socialMediaLinks.facebook"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Facebook</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="socialMediaLinks.twitter"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Twitter</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+
+                />
+                    <FormField 
+                control={form.control}
+                name="socialMediaLinks.instagram"
+                render={({field})=>(
+                    <FormItem>
+                        <FormLabel>Instagram</FormLabel>
+                        <FormControl>
+                            <Input {...field} value={field.value || ''}/>
+                        </FormControl>
+                        <FormMessage/>
+                    </FormItem>
+                )}
+                />
+                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4 items-center">
+                    <div className="col-span-4 md:col-span-3">
+                        <FormField 
+                            control={form.control}
+                            name="servicesOffered"
+                            render={({field})=>(
+                                <FormItem>
+                                    <FormLabel>Services Offered</FormLabel>
+                                    <FormControl>
+                                        <textarea {...field} value={field.value || ''}/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <ImagePreviewer setImageFiles={setImageFiles} 
+                    setImagePreview={setImagePreview} 
+                    imagePreview={imagePreview}/>
+                    <NMImageUploader 
+                    setImageFiles={setImageFiles} 
+                    setImagePreview ={setImagePreview} 
+                    label ="Upload Logo"/>
+                   </div>
+                <Button type="submit" className="mt-5 w-full">
+                    Create
+                </Button>
+                </form>
+            </Form>
+        </div>
+    );
+};
+
+export default CreateShopForm;
