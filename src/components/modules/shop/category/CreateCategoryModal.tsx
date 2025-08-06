@@ -36,7 +36,7 @@ export function CreateCategoryModal() {
                 toast.success(res?.message)
             }
         } catch (err:any) {
-            console.log(err)
+            toast.message(err.message)
         }
     }
   return (
