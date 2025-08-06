@@ -52,64 +52,27 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
+      title: "Dashboard",
+      url: "/user/dashboard",
       icon: SquareTerminal,
       isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
     },
     {
-      title: "Models",
-      url: "#",
+      title: "Shop",
+      url: "/user/shop/all-products",
       icon: Bot,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Manage Products",
+          url: "/user/shop/all-products",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "Manage Categories",
+          url: "/user/shop/category",
         },
         {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          title: "Manage Brands",
+          url: "/user/shop/brand",
         },
       ],
     },
