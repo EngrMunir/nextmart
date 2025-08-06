@@ -11,12 +11,17 @@ import Link from "next/link";
 import { loginSchema } from "./loginValidation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
     const form = useForm({
         resolver: zodResolver(loginSchema),
     });
-    const [reCaptchaStatus, setReCaptchaStatus] = useState(false)
+    const [reCaptchaStatus, setReCaptchaStatus] = useState(false);
+
+    const searchParams = useSearchParams();
+    const redirect = searchParams.get("redirectPath")
+    const router = useRouter();
 
     const { formState: {isSubmitting}} = form
 
@@ -35,7 +40,12 @@ const LoginForm = () => {
         try {
             const res = await loginUser(data);
             if(res.success){
-                toast.success(res?.message)
+                toast.success(res?.message);
+                if(redirect){
+                    router.push(redirect)
+                }else{
+                    router.push("/profile");
+                }
             }else{
                 toast.error(res?.message)
             }
