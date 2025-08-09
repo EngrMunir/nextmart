@@ -20,6 +20,7 @@ const AddProductsForm = () => {
             weight:"",
             availableColors:[{value:""}],
             keyFeatures:[{value:""}],
+            specification:[{key:"", value:""}],
         },
     });
 
@@ -43,6 +44,15 @@ const AddProductsForm = () => {
         appendFeatures({value:""});
     }
 
+    const {append: appendSpec, fields:specFields } = useFieldArray({
+        control: form.control,
+        name:"specification"
+    })
+
+    const addSpec = () =>{
+        appendSpec({key:"",value:""});
+    }
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) =>{
         try {
             console.log(data);
@@ -64,6 +74,30 @@ const AddProductsForm = () => {
                             render={({field}) =>(
                                 <FormItem>
                                     <FormLabel>Product Name</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} value={field.value || ""}/>
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="description"
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} value={field.value || ""}/>
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="price"
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Price</FormLabel>
                                     <FormControl>
                                         <Input {...field} value={field.value || ""}/>
                                     </FormControl>
@@ -108,6 +142,48 @@ const AddProductsForm = () => {
                             )}
                         />
                                 </div>)
+                            }
+                        </div>
+
+                        {/* dynamically add double field */}
+                        <div>
+                            <div className="flex justify-between items-center border-t border-b py-3 my-3">
+                                <p className="text-primary font-bold text-xl">Specification</p>
+                                <Button onClick={addSpec} variant="outline" className="size-10" type="button">
+                                    <Plus/>
+                                </Button>
+                            </div>
+                            {
+                                specFields.map((specField, index) =>(
+                                    <div key={specField.id} className="grid grid-cols-1 gap-4 md:grid-cols-2 my-5">
+                            <FormField
+                            control={form.control}
+                            name={`specification.${index}.key`}
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Feature name {index+1}</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} value={field.value || ""}/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                                )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name={`specification.${index}.value`}
+                            render={({field}) =>(
+                                <FormItem>
+                                    <FormLabel>Feature Description {index+1}</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} value={field.value || ""}/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                                )}
+                            />
+                            </div>
+                                ))
                             }
                         </div>
                     </div>
